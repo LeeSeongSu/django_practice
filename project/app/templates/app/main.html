@@ -1,0 +1,202 @@
+{% block header %}
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script
+        src="https://code.jquery.com/jquery-3.4.1.min.js"
+        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+        crossorigin="anonymous"></script>
+<!--1. 아임포트 라이브러리 추가-->
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+
+
+
+
+<header>
+  
+  <div id="map" style="width:400px;height:400px;"></div>
+
+	
+ 
+  <div class="masthead-content">
+    <div class="container">
+      
+      {% if user.is_authenticated %}
+      <h2 class="masthead-subheading mb-0">{{ user.nickname }}님이 로그인하셨습니다</h2>
+      <a href="{% url 'logout' %}"> sign out</a>
+      
+      {% else %}
+      
+      
+      <form method="POST" action="/signin">
+        {% csrf_token %}
+        {{ signin_form.as_p}}
+        <input type="submit" value="submit">
+      </form>
+      <a href="{% url 'signup' %}">회원가입하기</a>
+      {% endif %}
+      
+      <a href="/create" class="btn btn-primary btn-xl rounded-pill mt-5">Write a Post</a>
+
+      
+
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+
+{% block content %}
+{% load static %}
+
+{% for post in posts %}
+<section>
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 order-lg-2">
+        <div class="p-5">
+          
+        </div>
+      </div>
+      <div class="col-lg-6 order-lg-1">
+        <div class="p-5">
+          <h4 class="display-6">작성자 : {{post.writer}}</h4>
+          <h2 class="display-4">글 제목 : {{post.title}}</h2>
+          <p>글 내용 : {{post.content}}</p>
+          {% if post.image %}
+          <img class="img-fluid rounded-circle" src="{{ post.image.url }}" alt="" width="200" height="200">
+          {% endif %}
+        </div>
+
+       
+
+      </div>
+    </div>
+  </div>
+</section>
+{% endfor %}
+<div id="app">
+  <h1></h1>
+
+ 
+ 
+  <input v-model="order.buyer_tel" placeholder="주문자 전화번호">
+
+  <button v-on:click="requestPay">결제 요청</button>
+</div>
+
+{% endblock %}
+<script type="text/javascript">
+  let app = new Vue({
+      el: '#app',
+      data: {
+          order: {
+              name : '',
+              amount : null,
+              buyer_tel : '',
+          }
+      },
+      methods: {
+          requestPay: function(){
+              //1. 객체 초기화 (가맹점 식별코드 삽입)
+              var IMP = window.IMP;
+              IMP.init("imp52632691");
+              //3. 결제창 호출
+              IMP.request_pay({
+                  pg : 'jtnet',
+                  pay_method : 'card',
+                  merchant_uid : 'merchant_' + new Date().getTime(),
+                  name : '{{user.username}}',
+                  amount : '{{user.nickname}}',
+                  buyer_tel : this.order.buyer_tel,
+              }, function(rsp) {
+                  if ( rsp.success ) {
+                      //4. 결제 요청 결과 서버(자사)에 적용하기
+                      //ajax 서버 통신 구현 -> 5. 서버사이드에서 validation check
+
+                      //6. 최종 서버 응답 클라이언트에서 단계 4.에서 보낸 서버사이드 응답 에따라 결제 성공 실패 출력
+                      var msg = '결제가 완료되었습니다.';
+                      msg += '고유ID : ' + rsp.imp_uid;
+                      msg += '상점 거래ID : ' + rsp.merchant_uid;
+                      msg += '결제 금액 : ' + rsp.paid_amount;
+                      msg += '카드 승인번호 : ' + rsp.apply_num;
+                  } else {
+                      var msg = '결제에 실패하였습니다.';
+                      msg += '에러내용 : ' + rsp.error_msg;
+                  }
+                  alert(msg);
+                  
+              });
+          }
+      }
+  });
+
+</script>
+
+
+
+<script src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=2d5ed3df47db098c3487cb6f3d116c65&libraries=clusterer"></script>
+	<script>
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+		    mapOption = {
+		        center: new kakao.maps.LatLng(37.56682, 126.97865), // 지도의 중심좌표
+		        level: 2, // 지도의 확대 레벨
+		        mapTypeId : kakao.maps.MapTypeId.ROADMAP   // 지도종류
+		    }; 
+
+		// 지도를 생성한다 
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
+		
+		// 마커 클러스터러를 생성합니다 
+	    var clusterer = new kakao.maps.MarkerClusterer({
+	        map: map, // 마커들을 클러스터로 관리하고 표시할 지도 객체 
+	        averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정 
+	        minLevel: 10 // 클러스터 할 최소 지도 레벨 
+	    });
+		
+	 // HTML5의 geolocation으로 사용할 수 있는지 확인합니다 
+	    if (navigator.geolocation) {
+	        
+	        // GeoLocation을 이용해서 접속 위치를 얻어옵니다
+	        navigator.geolocation.getCurrentPosition(function(position) {
+	            
+	            var lat = position.coords.latitude, // 위도
+	                lon = position.coords.longitude; // 경도
+	            
+	            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
+	                message = '<div style="padding:5px;">{{user.username}}님의 현재위치</div>'; // 인포윈도우에 표시될 내용입니다
+	            
+	            // 마커와 인포윈도우를 표시합니다
+	            displayMarker(locPosition, message);
+	                
+	          });
+	        
+	     // 지도에 마커와 인포윈도우를 표시하는 함수입니다
+	        function displayMarker(locPosition, message) {
+
+	            // 마커를 생성합니다
+	            var marker_present = new kakao.maps.Marker({  
+	                map: map, 
+	                position: locPosition
+	            }); 
+	            
+	            var iwContent = message, // 인포윈도우에 표시할 내용
+	                iwRemoveable = true;
+
+	            // 인포윈도우를 생성합니다
+	            var infowindow = new kakao.maps.InfoWindow({
+	                content : iwContent,
+	                removable : iwRemoveable
+	            });
+	            
+	            // 인포윈도우를 마커위에 표시합니다 
+	            infowindow.open(map, marker_present);
+	            
+	            // 지도 중심좌표를 접속위치로 변경합니다
+	            map.setCenter(locPosition);      
+	        }    
+	        
+	    }
+     
+
+		
+	</script>
