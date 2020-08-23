@@ -58,6 +58,7 @@ INSTALLED_APPS = [
     #provider 구글 페이스북 카톡 깃헙
     'allauth.socialaccount.providers.google',
 
+  
     
 ]
 
@@ -69,7 +70,10 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+
 ]
+
 
 ROOT_URLCONF = 'habitst.urls'
 

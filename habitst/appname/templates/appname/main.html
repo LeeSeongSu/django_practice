@@ -87,15 +87,15 @@
     crossorigin="anonymous"></script><!-- jQuery CDN --->
   <script>
     function cancelPay() {
-      jQuery.ajax({    
-        "url": window.ajaxUrl['ec2-54-180-83-192.ap-northeast-2.compute.amazonaws.com:8080/payments/cancel'], 
+      jQuery.ajax({
+        "url": "https://ec2-54-180-83-192.ap-northeast-2.compute.amazonaws.com:8080/payments/cancel",
         "type": "POST",
         "contentType": "application/json",
         "data": JSON.stringify({
           "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
           "cancel_request_amount": 2000, // 환불금액
           "reason": "테스트 결제 환불", // 환불사유
-          'csrfmiddlewaretoken': csrf_token,
+          
          
         }),
         "dataType": "json"
@@ -107,7 +107,7 @@
      
     }
   </script>
- 
+  
 </div>
 
 {% endblock %}
@@ -242,6 +242,7 @@
           url: "https://api.iamport.kr/payments/cancel",
           method: "post",
           headers: {
+            
             "Content-Type": "application/json",
             "Authorization": 'Bearer ${3e26827dcd452c8f2fef58b6ef0f6af3af8f93ee}' // 아임포트 서버로부터 발급받은 엑세스 토큰
           },
