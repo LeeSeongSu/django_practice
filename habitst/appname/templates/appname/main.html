@@ -87,14 +87,15 @@
     crossorigin="anonymous"></script><!-- jQuery CDN --->
   <script>
     function cancelPay() {
-      jQuery.ajax({
-        "url": "ec2-54-180-83-192.ap-northeast-2.compute.amazonaws.com:8080/payments/cancel",
+      jQuery.ajax({    
+        "url": window.ajaxUrl['ec2-54-180-83-192.ap-northeast-2.compute.amazonaws.com:8080/payments/cancel'], 
         "type": "POST",
         "contentType": "application/json",
         "data": JSON.stringify({
           "merchant_uid": "mid_" + new Date().getTime(), // 주문번호
           "cancel_request_amount": 2000, // 환불금액
-          "reason": "테스트 결제 환불" // 환불사유
+          "reason": "테스트 결제 환불", // 환불사유
+          'csrfmiddlewaretoken': csrf_token,
          
         }),
         "dataType": "json"
@@ -106,6 +107,7 @@
      
     }
   </script>
+ 
 </div>
 
 {% endblock %}
