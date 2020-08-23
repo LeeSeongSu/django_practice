@@ -1,0 +1,9 @@
+{% block content %}
+
+<form method="POST" >
+    {% csrf_token %}
+    {{ signin_form.as_p}}
+    <input type="submit" value="submit">
+    
+ 
+{% endblock %}
