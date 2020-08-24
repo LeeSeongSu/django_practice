@@ -21,7 +21,12 @@ from django.conf import settings
 from django.conf.urls.static import static
 from appname import views as accounts_views
 
+from django.conf.urls import url
 
+from django.views.generic import TemplateView
+from appname import views
+
+app_name = 'shop'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', appname.views.main, name='main'),
@@ -44,6 +49,8 @@ urlpatterns = [
     #path('search', appname.views.search, name='search'), #뷰스에 search가 두개가 있더라고요
     path('withme', appname.views.withme, name='withme'),
     
+  
+    url(r'', include('shop.urls', namespace='shop')),
     path('accounts/', include('allauth.urls')),
     path('',include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

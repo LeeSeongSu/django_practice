@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 
 import os
 
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -58,8 +59,10 @@ INSTALLED_APPS = [
     #provider 구글 페이스북 카톡 깃헙
     'allauth.socialaccount.providers.google',
 
+    'shop',
   
-    
+
+
 ]
 
 MIDDLEWARE = [
@@ -169,3 +172,8 @@ LOGIN_REDIRECT_URL = '/'
 ACCOUNT_LOGOUT_ON_GET = True
 # 로그인5회 이상 틀리면 방지문자
 # 아이디에 꼭 이메일 형식 입력
+
+IAMPORT_SHOP_ID = 'imp52632691'
+IAMPORT_API_KEY = '3687272071544242'
+IAMPORT_API_SECRET = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8'
+
