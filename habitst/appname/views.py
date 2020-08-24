@@ -10,9 +10,10 @@ from django.http import HttpResponse
 from .forms import CustomUserChangeForm
 from django.contrib.auth.decorators import login_required
 
-from django.views.decorators.csrf import csrf_exempt
 
 from django.contrib.auth.models import User
+
+from shop.models import Order
 # Create your views here.
 def main(request):
     posts = Post.objects.all().order_by('-id')
@@ -215,8 +216,8 @@ def myblog(request):
 def mygroup(request):
     return render(request, 'appname/mygroup.html')
 
-def mypage(request):
-    return render(request, 'appname/mypage.html')
+# def mypage(request):
+#     return render(request, 'appname/mypage.html')
 
 def review(request):
     return render(request, 'appname/review.html')
@@ -226,3 +227,11 @@ def review(request):
 
 def withme(request):
     return render(request, 'appname/withme.html')
+
+@login_required
+def mypage(request):
+    order_list = Order.objects.filter(user=request.user)
+    return render(request, 'appname/mypage.html', {
+        'order_list': order_list,
+    })
+

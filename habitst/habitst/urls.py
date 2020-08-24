@@ -22,11 +22,11 @@ from django.conf.urls.static import static
 from appname import views as accounts_views
 
 from django.conf.urls import url
+from django.shortcuts import redirect
 
-from django.views.generic import TemplateView
+
 from appname import views
-
-app_name = 'shop'
+app_name='appname'
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', appname.views.main, name='main'),
@@ -44,13 +44,16 @@ urlpatterns = [
     path('habittest', appname.views.habittest, name='habittest'),
     path('myblog', appname.views.myblog, name='myblog'),
     path('mygroup', appname.views.mygroup, name='mygroup'),
-    path('mypage', appname.views.mypage, name='mypage'),
+    path('mypage/', appname.views.mypage, name='mypage'),
     path('review', appname.views.review, name='review'),
     #path('search', appname.views.search, name='search'), #뷰스에 search가 두개가 있더라고요
     path('withme', appname.views.withme, name='withme'),
     
-  
-    url(r'', include('shop.urls', namespace='shop')),
+
+    url(r'^shop/', include('shop.urls', namespace='shop')),
+    url(r'^$', lambda r:redirect('shop:index'), name='root'),
+    
+
     path('accounts/', include('allauth.urls')),
     path('',include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

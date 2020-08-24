@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'appname.apps.AppnameConfig',
+    'appname',
 
     'django.contrib.sites',
     # allauth
@@ -58,7 +58,7 @@ INSTALLED_APPS = [
 
     #provider 구글 페이스북 카톡 깃헙
     'allauth.socialaccount.providers.google',
-
+    'django.contrib.humanize',
     'shop',
   
 
@@ -83,7 +83,9 @@ ROOT_URLCONF = 'habitst.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+             os.path.join(BASE_DIR, 'habitst', 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -173,7 +175,11 @@ ACCOUNT_LOGOUT_ON_GET = True
 # 로그인5회 이상 틀리면 방지문자
 # 아이디에 꼭 이메일 형식 입력
 
-IAMPORT_SHOP_ID = 'imp52632691'
+from iamport import Iamport
+
+iamport = Iamport(imp_key='{3687272071544242}', imp_secret='{k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8}')
+
+IAMPORT_ID = 'imp52632691'
 IAMPORT_API_KEY = '3687272071544242'
 IAMPORT_API_SECRET = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8'
 

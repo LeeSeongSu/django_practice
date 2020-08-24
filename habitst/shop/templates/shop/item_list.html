@@ -1,21 +1,23 @@
-
+{% extends "shop/layout.html" %}
 {% load humanize %}
 
 {% block content %}
-    <div class="container mt-3">
+    <div class="container">
+        <a href="meet_create" class="btn btn-primary btn-xl rounded-pill mt-5">예약잡기</a>
         <div class="row">
             {% for item in item_list %}
                 <div class="col-sm-3 mb-3">
                     <div class="card">
-                        <img class="card-img-top" src="{{ item.photo.url }}" />
+                        <img src="{{ item.photo.url }}" class="card-img-top" alt="" width="200" height="200">
                         <div class="card-body">
-                            <p class="card-text" style="line-height: 1.5em; height: 3em; text-overflow: ellipsis;">{{ item.name }}</p>
+                            <p class="card-text" style="line-height: 1.5em; height: 3em; text-overflow: ellipsis;">취미 : {{ item.name }}</p>
                             <p class="card-text text-right">{{ item.amount|intcomma }}원</p>
                         </div>
-                        <a class="btn btn-primary btn-block" href="{% url 'shop:order_new' item.pk %}">구매하기</a>
+                        <a href="{% url 'shop:order_new' item.pk %}" class="btn btn-primary btn-block">결제하기</a>
                     </div>
                 </div>
             {% endfor %}
         </div>
+      
     </div>
-{% endblock content %}
+{% endblock %}
