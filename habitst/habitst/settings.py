@@ -23,15 +23,15 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '-shh2#xmdtl!$jq^ynewzt5w*52thwha=b=296m@w^&l@micnj'
 
-
+IAMPORT_SHOP_ID = 'imp52632691'
+IAMPORT_API_KEY = '3687272071544242'
+IAMPORT_SECRET_KEY = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'localhost',
-    '.ap-northeast-2.compute.amazonaws.com',
-    '127.0.0.1',
+  
 ]
 
 
@@ -73,6 +73,8 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    
+    
 
 
 ]

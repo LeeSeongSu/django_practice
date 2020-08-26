@@ -26,7 +26,7 @@ from django.shortcuts import redirect
 
 
 from appname import views
-app_name='appname'
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', appname.views.main, name='main'),
@@ -50,8 +50,7 @@ urlpatterns = [
     path('withme', appname.views.withme, name='withme'),
     
 
-    url(r'^shop/', include('shop.urls', namespace='shop')),
-    url(r'^$', lambda r:redirect('shop:index'), name='root'),
+    path('shop/', include('shop.urls')),
     
 
     path('accounts/', include('allauth.urls')),
