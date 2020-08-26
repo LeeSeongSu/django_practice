@@ -50,8 +50,8 @@ urlpatterns = [
     path('withme', appname.views.withme, name='withme'),
     
 
-    path('shop/', include('shop.urls')),
-    
+    url(r'^shop/', include('shop.urls', namespace='shop')),
+    url(r'^$', lambda request: redirect('shop:index'), name='root'),
 
     path('accounts/', include('allauth.urls')),
     path('',include('django.contrib.auth.urls')),

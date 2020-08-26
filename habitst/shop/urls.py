@@ -1,12 +1,11 @@
+from django.conf.urls import url
 from django.urls import path
-
 from . import views
-import shop.views
-app_name = 'shop'
 
+app_name = 'shop'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('<int:item_id>/order/new/', views.order_new, name='order_new'),
-    path('<int:item_id>/order/<str:merchant_uid>/pay/', views.order_pay, name='order_pay'),
-    path('meet_create', shop.views.meet_create, name='meet_create'),
+    url(r'^$', views.index, name='index', kwargs={'template_name': 'shop/item_list.html'}),
+    url(r'^(?P<item_id>\d+)/order/new/$', views.order_new, name='order_new'),
+    url(r'^(?P<item_id>\d+)/order/(?P<merchant_uid>[\da-f\-]{36})/pay/$', views.order_pay, name='order_pay'),
+    path('meet_create', views.meet_create, name='meet_create'),
 ]

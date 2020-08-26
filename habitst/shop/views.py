@@ -1,16 +1,9 @@
-from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView
-
+from django.contrib.auth.decorators import login_required
 from .models import Item, Order
-from .forms import OrderForm, PayForm
-
-
-index = ListView.as_view(model=Item,
-                         queryset=Item.objects.filter(
-                             is_public=True,
-                         ))
-
+from .forms import PayForm,ItemForm
+from appname.forms import HashtagForm
 
 class ItemListView(ListView):
     model = Item
@@ -18,16 +11,20 @@ class ItemListView(ListView):
 
     def get_queryset(self):
         self.q = self.request.GET.get('q', '')
-
         qs = super().get_queryset()
+
         if self.q:
-            qs = qs.filter(name__icontaines=self.q)
+            qs = qs.filter(name__icontains=self.q)
         return qs
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['q'] = self.q
         return context
+
+
+index = ItemListView.as_view()
+# Create your views here.
 
 
 @login_required
@@ -44,25 +41,27 @@ def order_pay(request, item_id, merchant_uid):
         form = PayForm(request.POST, instance=order)
         if form.is_valid():
             form.save()
-
-            return redirect('appname:mypage')
+            return redirect('mypage')
     else:
         form = PayForm(instance=order)
-
     return render(request, 'shop/pay_form.html', {
         'form': form,
     })
 
 def meet_create(request):
-   
+    if not request.user.is_active:
+        signin_form = SigninForm()
+        return render(request, 'appname/signin.html', {'signin_form': signin_form})
+
 
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save(commit=False)
-            post.writer = request.user 
+            post.writer = request.user           
             post.save()
-        
+           
+
             return redirect('main')
     else:
         form = ItemForm()

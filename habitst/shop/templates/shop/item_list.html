@@ -1,26 +1,33 @@
-{% extends "withme.html" %}
-{% load humanize %}
+{% extends 'shop/layout.html' %}
 
 {% block content %}
-    <div class="container">
-        <div class="row">
-            {% for item in item_list%}
-                <div class="col-sm-3">
-                    <div class="card" style="min-height: 100%;">
-                        {% if item.photo %}
-                            <img class="card-img-top" src="{{ item.photo.url }}" style="width: 250px; height: 250px;" alt="Card image cap">
-                        {% endif %}
-
-                        <div class="card-body">
-                            <p class="card-text">{{ item.name }}</p>
-                            <p class="card-text">{{ item.amount|intcomma }}원</p>
-                        </div>
-
-                        <a href="{% url 'shop:order_new' item.pk %}" class="btn btn-primary btn-block">구매하기</a>
-
+{% load humanize %}
+<div class="container">
+    <div class="row">
+      <a href="meet_create" class="btn btn-primary btn-xl rounded-pill mt-5">예약잡기</a>
+            {% for item in  item_list %}
+            <div class="col-sm-3">
+                <div class="card">
+                    {% if item.photo %}
+                        <img class="card-img-top" src="{{ item.photo.url }}">
+                    {% endif %}
+                    <div class="card-body">
+                      <p class="card-title"></p>
+                      <p class="card-title">{{item.name}}</p>
+                      <p class="card-text">{{item.amount|intcomma}}</p>
+                      {% if item.desc %}
+                        <p class="card-text">{{item.desc}}</p>
+                      {% endif %}
                     </div>
+                    <!-- <div class="card-footer">
+                      <small class="text-muted">Last updated 3 mins ago</small>
+                    </div>-->
+                    <a href="{% url 'shop:order_new' item.id %}" class="btn btn-primary">구매하기</a>
                 </div>
+
+            </div>
             {% endfor %}
-        </div>
     </div>
+</div>
+
 {% endblock %}

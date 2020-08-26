@@ -25,15 +25,15 @@ SECRET_KEY = '-shh2#xmdtl!$jq^ynewzt5w*52thwha=b=296m@w^&l@micnj'
 
 IAMPORT_SHOP_ID = 'imp52632691'
 IAMPORT_API_KEY = '3687272071544242'
-IAMPORT_SECRET_KEY = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8'
+IAMPORT_API_SECRET = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7PYwG7gBpLx4zPKyfIo10Ui8'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  'ec2-52-79-165-191.ap-northeast-2.compute.amazonaws.com',
-  '127.0.0.1',
-  '52.79.165.191',
+    'localhost',
+    '.ap-northeast-2.compute.amazonaws.com',
+    '127.0.0.1',
 ]
 
 
@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'appname',
-
+    'shop',
+    
     'django.contrib.sites',
     # allauth
     'allauth',
@@ -61,7 +62,7 @@ INSTALLED_APPS = [
     #provider 구글 페이스북 카톡 깃헙
     'allauth.socialaccount.providers.google',
     'django.contrib.humanize',
-    'shop',
+    
   
 
 
@@ -75,8 +76,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    
-    
 
 
 ]
