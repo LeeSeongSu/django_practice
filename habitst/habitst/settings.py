@@ -31,7 +31,9 @@ IAMPORT_SECRET_KEY = 'k28K0nkm098hSlkFuQ7U6yaCLMX0pR9JUhuVFOiGYqXQLiwg8DbeclRX7P
 DEBUG = True
 
 ALLOWED_HOSTS = [
-  
+  'ec2-52-79-165-191.ap-northeast-2.compute.amazonaws.com',
+  '127.0.0.1',
+  '52.79.165.191',
 ]
 
 
