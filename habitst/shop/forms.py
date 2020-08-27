@@ -18,6 +18,10 @@ class PayForm(IamportBaseForm):
 class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
-        fields = ['name','desc','amount','photo']
+        fields = ['name','desc','amount','photo','date_select'] 
+        widgets = {
+               'date_select': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
+             
+        }
 
    

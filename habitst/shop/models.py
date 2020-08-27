@@ -29,10 +29,13 @@ class Item(models.Model):
     desc = models.TextField(blank=True)
     amount = models.PositiveIntegerField()
     photo = models.ImageField()
+    date_select = models.DateTimeField(null=True,blank=True)
     is_public = models.BooleanField(default=True, db_index=True)
     created_at = models.DateTimeField(auto_now_add=True,null=True)
     updated_at = models.DateTimeField(auto_now=True)
-   
+    meet_writer = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,default='')
+
+ 
 
 class Order(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
@@ -41,6 +44,7 @@ class Order(models.Model):
     imp_uid = models.CharField(max_length=100, blank=True)
     name = models.CharField(max_length=100, verbose_name='상품명')
     amount = models.PositiveIntegerField(verbose_name='결제금액')
+    
     status = models.CharField(
         max_length=9,
         choices=(

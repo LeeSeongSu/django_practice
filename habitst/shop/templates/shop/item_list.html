@@ -12,12 +12,14 @@
                         <img class="card-img-top" src="{{ item.photo.url }}">
                     {% endif %}
                     <div class="card-body">
-                      <p class="card-title"></p>
-                      <p class="card-title">{{item.name}}</p>
-                      <p class="card-text">{{item.amount|intcomma}}</p>
+                      <p class="card-title">모임이름 : {{item.name}}</p>
+                      <p class="card-title">모임인원 : {{item.meet_writer}}</p>
+                      <p class="card-title">모임날짜 : {{item.date_select}}</p>
+                      <p class="card-text">모임장소 : {{item.amount|intcomma}}</p>
                       {% if item.desc %}
-                        <p class="card-text">{{item.desc}}</p>
+                        <p class="card-text">회비 : {{item.desc}}</p>
                       {% endif %}
+                      <p class="card-text">모임멤버 : {{item.amount|intcomma}}</p>
                     </div>
                     <!-- <div class="card-footer">
                       <small class="text-muted">Last updated 3 mins ago</small>
