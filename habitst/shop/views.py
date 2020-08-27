@@ -47,13 +47,8 @@ def order_pay(request, item_id, merchant_uid):
     return render(request, 'shop/pay_form.html', {
         'form': form,
     })
-
+@login_required
 def meet_create(request):
-    if not request.user.is_active:
-        signin_form = SigninForm()
-        return render(request, 'appname/signin.html', {'signin_form': signin_form})
-
-
     if request.method == "POST":
         form = ItemForm(request.POST, request.FILES)
         if form.is_valid():
