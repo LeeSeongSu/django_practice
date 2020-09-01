@@ -19,9 +19,14 @@ class ItemForm(forms.ModelForm):
     class Meta:
         model = Item
         fields = ['name','desc','amount','photo','date_select'] 
-        widgets = {
-               'date_select': forms.DateTimeInput(attrs={'type': 'datetime-local'}, format='%Y-%m-%dT%H:%M'),
-             
-        }
+    date_select = forms.DateTimeField(
+        input_formats = ['%Y-%m-%dT%H:%M'],
+        widget = forms.DateTimeInput(
+            attrs={
+                'type': 'datetime-local',
+                'class': 'form-control'},
+            format='%Y-%m-%dT%H:%M')
+    )
+
 
    

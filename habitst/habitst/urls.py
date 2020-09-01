@@ -27,6 +27,8 @@ from django.shortcuts import redirect
 
 from appname import views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', appname.views.main, name='main'),
@@ -52,7 +54,8 @@ urlpatterns = [
 
     url(r'^shop/', include('shop.urls', namespace='shop')),
     url(r'^$', lambda request: redirect('shop:index'), name='root'),
-
+    path('order/cancel/<str:imp_uid>', views.OrderCancel.as_view(), name='order_cancel'),
+    
     path('accounts/', include('allauth.urls')),
     path('',include('django.contrib.auth.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

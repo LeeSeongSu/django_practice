@@ -18,8 +18,10 @@ class ItemListView(ListView):
         return qs
 
     def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
+        context = super(ItemListView,self).get_context_data(**kwargs)
         context['q'] = self.q
+        context['Order_list'] = Order.objects.all()
+        context['loginuser'] = Order.objects.filter(user=self.request.user) # 로그인한새끼 주문
         return context
 
 
@@ -55,7 +57,9 @@ def meet_create(request):
             post = form.save(commit=False)
             post.meet_writer = request.user           
             post.save()
-            return redirect('main')
+            return redirect('./')
     else:
         form = ItemForm()
         return render(request, 'shop/meet_create.html', {'form': form})
+
+

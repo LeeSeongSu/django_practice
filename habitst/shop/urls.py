@@ -8,4 +8,5 @@ urlpatterns = [
     url(r'^(?P<item_id>\d+)/order/new/$', views.order_new, name='order_new'),
     url(r'^(?P<item_id>\d+)/order/(?P<merchant_uid>[\da-f\-]{36})/pay/$', views.order_pay, name='order_pay'),
     path('meet_create', views.meet_create, name='meet_create'),
+    
 ]

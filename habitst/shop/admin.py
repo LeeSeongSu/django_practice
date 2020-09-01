@@ -6,7 +6,7 @@ from iamport import Iamport
 # Register your models here.
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
-    list_display = ['photo_tag', 'name', 'amount']
+    list_display = ['photo_tag', 'name', 'amount','date_select']
 
     def photo_tag(self, item):
         if item.photo:

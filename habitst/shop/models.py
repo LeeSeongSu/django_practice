@@ -128,14 +128,18 @@ class Order(models.Model):
             return mark_safe('<a href="{0}" target="_blank">영수증</a>'.format(self.receipt_url))
 
     def cancel(self, reason=None, commit=True):
-        '결제내역 취소'
 
+        '결제내역 취소'
+        if self.status == 'reserv':
+            self.status = 'cancelled'
+            self.meta['cancelled_at'] = int(time())
         try:
+            commit = False
             meta = self.api.cancel(reason, imp_uid=self.imp_uid)
             assert str(self.merchant_uid) == self.meta['merchant_uid']
             self.update(commit=commit, meta=meta)
-        except Iamport.ResponseError as e: # 취소시 오류 예외처리(이미 취소된 결제는 에러가 발생함)
+        # except Iamport.ResponseError as e:  # 취소시 오류 예외처리(이미 취소된 결제는 에러가 발생함)
+        except:  # 취소시 오류 예외처리(이미 취소된 결제는 에러가 발생함)
             self.update(commit=commit)
-
         if commit:
             self.save()

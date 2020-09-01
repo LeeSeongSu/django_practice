@@ -14,6 +14,11 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 
 from shop.models import Order
+
+from django.utils.decorators import method_decorator
+from django.views.generic import RedirectView
+from django.contrib import messages
+
 # Create your views here.
 def main(request):
     posts = Post.objects.all().order_by('-id')
@@ -235,3 +240,32 @@ def mypage(request):
         'order_list': order_list,
     })
 
+@method_decorator(login_required, name='dispatch')
+class OrderCancel(RedirectView):
+    url = 'mypage'
+
+    def get(self, request, *args, **kwargs):
+        queryset = Order.objects.get(imp_uid=self.kwargs.get('imp_uid'))
+        try:
+
+            if queryset.status == "cancelled":
+                print("여기?")
+                messages.error(self.request, '이미 주문을 취소하셨습니다.')
+                print("취소가 이미됨")
+                return redirect(self.url)
+
+            elif queryset.status == "paid":
+                messages.error(self.request, '거래가 완료된 상태입니다.')
+                queryset.cancel()
+                queryset.update()
+                messages.info(self.request, '주문을 취소하셨습니다.')
+                print("주문취소?")
+                return redirect(self.url)
+
+            queryset.cancel()
+            messages.info(self.request, '주문을 취소하셨습니다.')
+        except:
+            messages.error(self.request, '유효하지 않은 상품입니다.')
+            
+
+        return redirect(self.url)
