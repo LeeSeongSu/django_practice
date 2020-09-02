@@ -21,7 +21,7 @@ class ItemListView(ListView):
         context = super(ItemListView,self).get_context_data(**kwargs)
         context['q'] = self.q
         context['Order_list'] = Order.objects.all()
-        context['loginuser'] = Order.objects.filter(user=self.request.user) # 로그인한새끼 주문
+      
         return context
 
 

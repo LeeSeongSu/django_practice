@@ -1,0 +1,60 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>결과화면1</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/re01.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css"
+          integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/"
+          crossorigin="anonymous">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+</head>
+
+<body class="d-flex flex-column h-100">
+<header>
+    <nav class="navbar">
+     
+    </nav>
+</header>
+
+<main role="main" class="flex">
+    <div class="container">
+        <div>
+            <br>
+            <h4><strong>{{ tester.name }}</strong>님에게 적합한 취미는<br><br> <strong>{{ habit.name }}</strong> </h4>
+        </div>
+        <div class="detail">
+            <br>
+         
+           
+            <p><img src="{{ habit.img }}" width="250wv" height="400vh"></p><br><br>
+            <p style="font-size: medium">{{ habit.result| linebreaksbr }}</p>
+        </div>
+
+
+        <br><br><Br>
+
+        
+        <br> <br>
+       
+        <br> <br>
+        <button class="re_btn">프로필에 취미 결과 추가하기</button>
+        <br><br><br>
+    </div>
+</main>
+
+
+<footer class="footer py-5">
+    <div class="container">
+          
+    </div>
+</footer>
+
+
+</body>
+
+</html>

@@ -64,7 +64,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'django.contrib.humanize',
     
-  
+    'Test',
+    'import_export',
+    'django_social_share',
 
 
 ]

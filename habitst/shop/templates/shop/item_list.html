@@ -34,9 +34,7 @@
               gg
               {%endif%}
                     -->
-                {% if user.username in loginuser %}
-                zz
-                {% endif %}
+                    <a href="{% url 'shop:order_new' item.id %}" class="btn btn-primary">구매하기</a>
                     참가인원 :  
                 {% for order in Order_list %}
                 {% if order.name == item.name%}

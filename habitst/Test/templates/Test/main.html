@@ -1,0 +1,58 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+</head>
+
+<body class="d-flex flex-column h-100">
+<header>
+    <nav class="navbar">
+        <div class="logo">
+            <a class="navbar-brand" href="{% url 'Test:main' %}"></a>
+        </div>
+    </nav>
+</header>
+
+<main role="main" class="flex">
+    <div class="container">
+        <div class="tester_name">
+            <br>
+            <h3>취미분석테스트</h3>
+            <br>
+            <h6>"빠르고 정확한 취미 테스트를 통해
+                당신에게 어떤 취미가 적합한지 확인해보세요!"</h6>
+           
+            <br>
+          
+            <form action="" method="POST">
+                {% csrf_token %}
+                
+                <input type="submit" class="name_btn" value="테스트 시작하기">
+            </form>
+            <br>
+            * 총 검사 시간은 5분 내외입니다.<br>
+            * 혹 질문이 마음에 들지 않더라고 정직하게 답변하십시오.
+        </div>
+         <br>
+            <br>
+            <br>
+    </div>
+</main>
+
+<footer class="footer py-5">
+    <div class="container">
+         
+    </div>
+</footer>
+
+</body>
+
+</html>
