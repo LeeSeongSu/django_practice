@@ -25,6 +25,7 @@ def main(request):
     users = CustomUser.objects.all()
     signin_form = SigninForm()
     comment_form = CommentForm()
+    
     return render(request, 'appname/main.html', {'posts': posts,'comment_form': comment_form,'users':users,'signin_form':signin_form})
     
 def create(request):
@@ -269,3 +270,4 @@ class OrderCancel(RedirectView):
             
 
         return redirect(self.url)
+

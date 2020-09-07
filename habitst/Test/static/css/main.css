@@ -33,6 +33,13 @@
     padding-top: 2%;
 }
 
+.logo2 {
+    display: block;
+    flex: auto;
+    justify-content: left;
+    text-align: left;
+}
+
 main {
     background-color: #6a2045;
 }
@@ -72,6 +79,7 @@ code {
 .tester_name {
     display: inline-block;
     padding: 20% 0 20% 0;
+    max-width: 100%;
 }
 
 @keyframes fadein {
@@ -142,6 +150,6 @@ code {
 .name_btn {
     background-color: wheat;
     border: none;
-    font-size: 25px;
+    font-size: 20px;
     padding: 2% 6% 2% 5%;
 }

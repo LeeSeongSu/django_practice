@@ -8,7 +8,7 @@ import operator
 
 # 메인화면 & tester 입력 받기
 def main(request):
-    if request.POST:
+    if request.GET:
         tester = Tester()
         tester.name = request.user
         tester.save()
@@ -118,20 +118,6 @@ def test_page(request, pk):
                 tester.Antiseptic += int(score)
                 tester.Bada += int(score)
                 tester.Jangma += int(score)
-            elif request.POST.get('answer3'):
-                tester.Love += int(score)
-                tester.Nowrite += int(score)
-                tester.Possible += int(score)
-                tester.Because += int(score)
-                tester.Blackleaf += int(score)
-                tester.Math += int(score)
-                tester.Kind += int(score)
-                tester.Sobolo += int(score)
-                tester.Small += int(score)
-            elif request.POST.get('answer4'):
-                tester.Bada += int(score)
-                tester.Jangma += int(score)
-                tester.Station += int(score)
             tester.save()
 
         # Question5
@@ -155,20 +141,6 @@ def test_page(request, pk):
                 tester.Small += int(score)
                 tester.Antiseptic += int(score)
                 tester.Meehee += int(score)
-            elif request.POST.get('answer3'):
-                tester.Love += int(score)
-                tester.Nowrite += int(score)
-                tester.Possible += int(score)
-                tester.Because += int(score)
-                tester.Blackleaf += int(score)
-                tester.Math += int(score)
-                tester.Kind += int(score)
-                tester.Sobolo += int(score)
-                tester.Small += int(score)
-            elif request.POST.get('answer4'):
-                tester.Bada += int(score)
-                tester.Jangma += int(score)
-                tester.Station += int(score)
             tester.save()
 
         # Question6
@@ -191,6 +163,9 @@ def test_page(request, pk):
             elif request.POST.get('answer4'):
                 tester.Bada += int(score)
                 tester.Jangma += int(score)
+            elif request.POST.get('answer5'):
+                tester.Antiseptic += int(score)
+                tester.Meehee += int(score)
             tester.save()
 
         # Question7
@@ -237,20 +212,6 @@ def test_page(request, pk):
                 tester.Nowrite += int(score)
                 tester.Possible += int(score)
                 tester.Antiseptic += int(score)
-            elif request.POST.get('answer3'):
-                tester.Love += int(score)
-                tester.Nowrite += int(score)
-                tester.Possible += int(score)
-                tester.Because += int(score)
-                tester.Blackleaf += int(score)
-                tester.Math += int(score)
-                tester.Kind += int(score)
-                tester.Sobolo += int(score)
-                tester.Small += int(score)
-            elif request.POST.get('answer4'):
-                tester.Bada += int(score)
-                tester.Jangma += int(score)
-                tester.Station += int(score)
             tester.save()
 
         # 다음 문제로 넘어가는 로직
@@ -270,13 +231,13 @@ def loading(request, pk):
                     tester.Math, tester.Meehee, tester.Antiseptic, tester.Because, tester.Jangma, tester.Lofi,
                     tester.Blackleaf, tester.Fifteen, tester.Kind, tester.Station, tester.Nowrite]
 
-    best_habit= max(tester_score)
+    best_book = max(tester_score)
 
     for index, ts in enumerate(tester_score):
-        if ts == best_habit:
-            habit = Habit.objects.get(id=index+1)
+        if ts == best_book:
+            book = Book.objects.get(id=index+1)
 
-    return render(request, "Test/loading.html", {'habit': habit, 'tester':tester})
+    return render(request, "Test/loading.html", {'book': book, 'tester':tester})
 
 # 결과도출화면01
 def result_01(request, pk):
@@ -285,12 +246,13 @@ def result_01(request, pk):
                     tester.Math, tester.Meehee, tester.Antiseptic, tester.Because, tester.Jangma, tester.Lofi,
                     tester.Blackleaf, tester.Fifteen, tester.Kind, tester.Station, tester.Nowrite]
 
-    best_habit = max(tester_score)
+    best_book = max(tester_score)
 
     for index, ts in enumerate(tester_score):
-        if ts == best_habit:
-            habit = Habit.objects.get(id=index+1)
+        if ts == best_book:
+            book = Book.objects.get(id=index+1)
 
-    return render(request, "Test/result1.html", {'habit': habit, 'tester':tester})
+    return render(request, "Test/result1.html", {'book': book, 'tester':tester})
+
 
 

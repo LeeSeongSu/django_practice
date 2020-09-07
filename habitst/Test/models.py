@@ -6,11 +6,11 @@ from django import forms
 # 0. 들어갈 책들의 데이터
 # 이 책들의 Score가 쌓이는 형식(유저 name참조)으로 views를 짜야함
 # 책은 pk id번호 (1~16)로 분류될 것
-class Habit(models.Model):
+class Book(models.Model):
     id = models.AutoField(primary_key=True)
-    name = models.CharField(max_length=200)
+    name = models.TextField()
     img = models.URLField()
-    result = models.TextField()
+    content = models.TextField() #시구절
 
 # 1. 테스트를 진행하는 유저
 class Tester(models.Model):
@@ -33,7 +33,7 @@ class Tester(models.Model):
     Kind = models.IntegerField(default=0)
     Station = models.IntegerField(default=0)
     Nowrite = models.IntegerField(default=0)
-    result = models.ForeignKey(Habit, on_delete=models.CASCADE, null=True, blank=True)
+    result = models.ForeignKey(Book, on_delete=models.CASCADE, null=True, blank=True)
 
 # 2. 질문 데이터
 class Question(models.Model):
@@ -41,8 +41,8 @@ class Question(models.Model):
     score = models.IntegerField()
     opt1 = models.TextField()
     opt2 = models.TextField()
-    opt3 = models.TextField()
-    opt4 = models.TextField()
-  
+    opt3 = models.TextField(blank=True)
+    opt4 = models.TextField(blank=True)
+
 
 #result 모델 굳이 필요 없이 views에서 max구하는 함수짜서, Max를 출력해주면 될 듯.

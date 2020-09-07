@@ -1,6 +1,5 @@
 
-
- * {
+* {
     font-family: 'Noto Serif KR', serif;
 }
 
@@ -120,7 +119,7 @@ code {
 }
 
 .ref {
-    font-size: 15px;
+    font-size: 13px;
     text-align: center;
 }
 

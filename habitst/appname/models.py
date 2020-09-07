@@ -39,3 +39,6 @@ class Hashtag(models.Model):
         return self.name
 
     name = models.CharField(max_length=50)
+
+
+
